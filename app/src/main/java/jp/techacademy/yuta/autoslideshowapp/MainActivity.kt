@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity() {
         bt_start.setOnClickListener{
             if(bt_start.text.equals("再生")) {
                 bt_start.text = "停止"
+                bt_next.isClickable = false
+                bt_before.isClickable = false
+
                 mTimer = Timer()
                 mTimer!!.schedule(object : TimerTask() {
                     override fun run() {
@@ -94,6 +97,9 @@ class MainActivity : AppCompatActivity() {
             } else {
                 if (mTimer != null){
                     bt_start.text = "再生"
+                    bt_next.isClickable = true
+                    bt_before.isClickable = true
+
                     mTimer!!.cancel()
                     mTimer = null
                 }
@@ -103,6 +109,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun goNext(cursor: Cursor) {
         Log.d("garally", "next")
+
         if (cursor.isLast) {
             cursor.moveToFirst()
         } else {
@@ -117,6 +124,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun goBefore(cursor: Cursor) {
         Log.d("garally", "before")
+
         if (cursor.isFirst) {
             cursor.moveToLast()
         } else {
